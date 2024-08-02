@@ -1,40 +1,48 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import '../CSS/Header.css';
+import { AuthContext } from '../context/AuthContext';
 
 function Header() {
+    const { authToken } = React.useContext(AuthContext);
+
+    const signOut = () => {
+        localStorage.removeItem('authToken');
+        window.location.reload();
+    };
+
     return (
         <header>
             <Link to="/">
                 <h1>Logo</h1>
             </Link>
-            <nav>
-
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
+            <nav className="nav-container">
+                <div className="nav-item">
+                    <Link to="/">Portfolio</Link>
+                </div>
+                <div className="nav-item">
                     <Link to="/about">About</Link>
-                </li>
-                <li>
-                    <Link to="/previous-projects">Previous Projects</Link>
-                </li>
-                <li>
-                    <Link to="/login">Login</Link>
-                </li>
-                <li>
-                    <Link to="/users">Users</Link>
-                </li>
-                <li>
-                    <Link to="/projects">Projects</Link>
-                </li>
-                <li>
-                    <Link to="/create-project">Create Project</Link>
-                </li>
-                <li>
-                    <Link to="/edit-project">Edit Project</Link>
-                </li>
-
+                </div>
+                <div className="nav-item">
+                    <Link to="/previous-projects">Contacts</Link>
+                </div>
+                {authToken ? (
+                    <>
+                        <div className="nav-item">
+                            <Link to="/users">Users</Link>
+                        </div>
+                        <div className="nav-item">
+                            <Link to="/projects">Projects</Link>
+                        </div>
+                        <div className="nav-item">
+                            <button onClick={signOut} className="sign-out-button">Sign Out</button>
+                        </div>
+                    </>
+                ) : (
+                    <div className="nav-item">
+                        <Link to="/login">Login</Link>
+                    </div>
+                )}
             </nav>
         </header>
     );
