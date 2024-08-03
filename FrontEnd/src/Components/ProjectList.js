@@ -31,6 +31,9 @@ const ProjectList = () => {
   return (
     <div className="project-list-container">
       <h2>Project List</h2>
+      <Link to="/create-project">
+        <button className="create-button">Create Project</button>
+      </Link>
       <ul className="project-list">
         {projects.map((project) => (
           <li key={project._id} className="project-list-item">

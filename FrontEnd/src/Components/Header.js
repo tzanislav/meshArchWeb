@@ -24,7 +24,7 @@ function Header() {
                     <Link to="/about">About</Link>
                 </div>
                 <div className="nav-item">
-                    <Link to="/previous-projects">Contacts</Link>
+                    <Link to="/projects">Projects</Link>
                 </div>
                 {authToken ? (
                     <>
