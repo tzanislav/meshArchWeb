@@ -32,6 +32,8 @@ const Login = () => {
         <div className="login-container">
 
             <form onSubmit={handleSubmit} className="login-form">
+            <img src = "/logo512.png" alt="logo" className="form-logo"/>
+
                 <h2 className="login-title">Login</h2>
                 {error && <p className="error-message">{error}</p>}
                 <div className="input-group">

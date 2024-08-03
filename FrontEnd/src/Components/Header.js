@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import '../CSS/Header.css';
 import { AuthContext } from '../context/AuthContext';
 
+
 function Header() {
     const { authToken } = React.useContext(AuthContext);
 
@@ -13,8 +14,12 @@ function Header() {
 
     return (
         <header>
-            <Link to="/">
-                <h1>Logo</h1>
+            <Link to="/" className="Link">
+                <div className="header-logo-container">
+                    <h1>MESH</h1>
+                    <img src="/logo512_White.png" alt="Logo" className="header-logo" />
+                    <h1>ARCHITECTURE</h1>
+                </div>
             </Link>
             <nav className="nav-container">
                 <div className="nav-item">
@@ -30,9 +35,6 @@ function Header() {
                     <>
                         <div className="nav-item">
                             <Link to="/users">Users</Link>
-                        </div>
-                        <div className="nav-item">
-                            <Link to="/projects">Projects</Link>
                         </div>
                         <div className="nav-item">
                             <button onClick={signOut} className="sign-out-button">Sign Out</button>

@@ -18,3 +18,11 @@
     transform: translate(-50%, -50%);
     color: white;
 }
+
+.hero-image
+{
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}

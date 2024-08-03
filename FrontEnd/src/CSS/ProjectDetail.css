@@ -1,4 +1,4 @@
-.project-detail-container {
+.project-detail-container .project-detail-container {
     padding: 20px;
   }
   
@@ -8,7 +8,7 @@
     margin-bottom: 10px;
   }
   
-.project-image-wrapper
+  .project-detail-container .project-image-wrapper
 {
   width: 300px;
   height: 300px;
@@ -23,7 +23,7 @@
 
 }
 
-.project-image-wrapper img 
+.project-detail-container .project-image-wrapper img 
 {
   height: 300px;
   height: 300px;
@@ -31,7 +31,7 @@
   object-fit: cover;
 }
 
-.project-image-wrapper button
+.project-detail-container .project-image-wrapper button
 {
   margin-top: 10px;
   padding: 5px 10px;

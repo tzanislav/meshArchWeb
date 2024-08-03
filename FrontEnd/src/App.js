@@ -10,6 +10,7 @@ import Register from './Components/Register';
 import CreateProject from './Components/CreateProject';
 import ProjectList from './Components/ProjectList';
 import ProjectDetail from './Components/ProjectDetail';
+import ProjectView from './Components/ProjectView';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/create-project" element={<CreateProject/>} />
           <Route path="/projects" element={<ProjectList />} />
-          <Route path="/project/:id" element={<ProjectDetail />} />
+          <Route path="/edit-project/:id" element={<ProjectDetail />} />
+          <Route path="/project/:id" element={<ProjectView />} />
 
         </Routes>
       </Router>
