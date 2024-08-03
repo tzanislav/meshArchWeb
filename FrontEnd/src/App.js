@@ -7,6 +7,9 @@ import Header from './Components/Header';
 import { AuthProvider } from './context/AuthContext';
 import Login from './Components/Login';
 import Register from './Components/Register';
+import CreateProject from './Components/CreateProject';
+import ProjectList from './Components/ProjectList';
+import ProjectDetail from './Components/ProjectDetail';
 
 function App() {
   return (
@@ -17,6 +20,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/create-project" element={<CreateProject/>} />
+          <Route path="/projects" element={<ProjectList />} />
+          <Route path="/project/:id" element={<ProjectDetail />} />
+
         </Routes>
       </Router>
     </AuthProvider>

@@ -1,0 +1,10 @@
+.project-detail-container {
+    padding: 20px;
+  }
+  
+  .project-images img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
