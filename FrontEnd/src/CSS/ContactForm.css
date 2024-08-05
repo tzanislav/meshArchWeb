@@ -1,13 +1,4 @@
-/* CSS for the Contact Form */
-.contact-form {
-    width: 60%;
-    margin: 50px auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-  }
   
   .contact-form form {
     background: #fff;

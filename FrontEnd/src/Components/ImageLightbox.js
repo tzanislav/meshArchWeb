@@ -60,6 +60,7 @@ function ImageLightbox({ images, close }) {
 
     return (
         <div className="lightbox" {...handlers} onClick={close}>
+            {!imageLoaded && <div className='lightbox-loading-text'>Loading</div>}
             <div className={imageStatus}>
                 <img
                     src={images[currentIndex]}
