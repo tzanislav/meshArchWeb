@@ -11,6 +11,8 @@ import CreateProject from './Components/CreateProject';
 import ProjectList from './Components/ProjectList';
 import ProjectDetail from './Components/ProjectDetail';
 import ProjectView from './Components/ProjectView';
+import Footer from './Components/Footer';
+import Contacts from './Pages/Contacts';
 
 function App() {
   return (
@@ -25,8 +27,10 @@ function App() {
           <Route path="/projects" element={<ProjectList />} />
           <Route path="/edit-project/:id" element={<ProjectDetail />} />
           <Route path="/project/:id" element={<ProjectView />} />
+          <Route path="/contacts" element={<Contacts />} />
 
         </Routes>
+        <Footer />
       </Router>
     </AuthProvider>
   );

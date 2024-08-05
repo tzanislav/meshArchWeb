@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../CSS/ImageCarousel.css';
 import ImageLightbox from './ImageLightbox';
 import { useSwipeable } from 'react-swipeable';
@@ -6,6 +6,8 @@ import { useSwipeable } from 'react-swipeable';
 function ImageCarousel({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [lightbox, setLightbox] = useState(false);
+    const imageRefs = useRef(new Array(images.length).fill(null)); // Refs for each image
+
   const handlers = useSwipeable({
     onSwipedLeft: () => goToNext(),
     onSwipedRight: () => goToPrevious(),
@@ -60,18 +62,37 @@ function ImageCarousel({ images }) {
     });
   }
 
-  return (
-    <div className="carousel" {...handlers}>
-    {lightbox &&<ImageLightbox image={images[currentIndex]} close={() => setLightbox(false)} />}
-      <div className="carousel-inner" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-        {images.map((src, index) => (
-          <img key={index} src={src} alt={`Slide ${index}`}  onClick={ () => handleClick()}/>
-        ))}
+    // Calculate the offset for the carousel
+    const getOffset = () => {
+      const offset = imageRefs.current.slice(0, currentIndex).reduce((acc, ref) => {
+        return acc + (ref ? ref.offsetWidth : 0);
+      }, 0);
+  
+      return -(offset + (imageRefs.current[currentIndex] ? imageRefs.current[currentIndex].offsetWidth / 2 : 0));
+    };
+
+    return (
+      <div className="carousel" {...useSwipeable({
+        onSwipedLeft: goToNext,
+        onSwipedRight: goToPrevious,
+        preventDefaultTouchmoveEvent: true,
+        trackMouse: true
+      })}>
+        <div className="carousel-inner" style={{ transform: `translateX(${getOffset()}px)` }}>
+          {images.map((src, index) => (
+            <img
+              ref={el => imageRefs.current[index] = el}
+              key={index}
+              src={src}
+              alt={`Slide ${index}`}
+              onClick={() => setLightbox(true)}
+            />
+          ))}
+        </div>
+        <button onClick={goToPrevious} className="left-arrow">&lt;</button>
+        <button onClick={goToNext} className="right-arrow">&gt;</button>
       </div>
-      <button onClick={goToPrevious} className="left-arrow">&lt;</button>
-      <button onClick={goToNext} className="right-arrow">&gt;</button>
-    </div>
-  );
+    );
 }
 
 export default ImageCarousel;

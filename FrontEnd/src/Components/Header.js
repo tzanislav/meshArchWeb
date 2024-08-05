@@ -17,7 +17,7 @@ function Header() {
             <Link to="/" className="Link">
                 <div className="header-logo-container">
                     <h1>MESH</h1>
-                    <img src="/logo512_White.png" alt="Logo" className="header-logo" />
+                    <img src="/logo512.png" alt="Logo" className="header-logo" />
                     <h1>ARCHITECTURE</h1>
                 </div>
             </Link>
@@ -26,7 +26,7 @@ function Header() {
                     <Link to="/">Portfolio</Link>
                 </div>
                 <div className="nav-item">
-                    <Link to="/about">About</Link>
+                    <Link to="/contacts">Contacts</Link>
                 </div>
                 <div className="nav-item">
                     <Link to="/projects">Projects</Link>

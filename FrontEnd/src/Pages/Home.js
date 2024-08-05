@@ -1,8 +1,12 @@
-import React from "react";
 import '../CSS/Home.css';
+import React from 'react';
+import ProjectColumns from '../Components/ProjectColumns';
+
 
 
 function Home() {
+
+
     return (
         <div>
             <div className="hero-image">
@@ -11,7 +15,11 @@ function Home() {
                     <h1>Welcome to the site</h1>
                     <p>Some text</p>
                 </div>
-                </div>
+            </div>
+            <div className="home-featured-projects">
+                <ProjectColumns />
+                
+            </div>
         </div>
     );
 }

@@ -18,6 +18,32 @@
 
 }
 
+.lightbox img
+{
+    width: auto;
+    height: 90vh;
+}
+
+.fade-enter {
+    opacity: 1;
+    transition: opacity 150ms ease-in;
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 0;
+}
+
+.fade-exit {
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 1;
+}
+
+
+
 @media screen and (max-width: 768px)
 {
     .lightbox

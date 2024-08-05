@@ -22,13 +22,17 @@ mongoose.connect(process.env.MONGO_DB, {
 const userRoutes = require('./routes/user');
 const vizProjectRoutes = require('./routes/vizProject');
 const uploadRoutes = require('./routes/upload');
+const apiRoutes = require('./routes/api');
 
+// Use routes
+app.use('/api', apiRoutes);
 app.use('/user', userRoutes);
 app.use('/vizProject', vizProjectRoutes);
 app.use('/upload', uploadRoutes);
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -1,21 +1,26 @@
 .carousel {
-    overflow: hidden;
-    position: relative;
-    height: 100vh; /* Adjust the height as needed */
-  }
+  overflow: hidden;
+  position: relative;
+  max-width: 80%;
+  margin: 0 auto;
+  max-height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   
-  .carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease;
-    width: 100%;
-  }
-  
-  .carousel-inner img {
-    width: 100%;
-    flex-shrink: 0;
-    height: 100vh; /* This ensures all images are the same height */
-    object-fit: cover; /* Adjusts the size of the image to cover the area */
-  }
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+  position: relative;
+  min-width: 100%; /* Ensure there is always space for at least one image */
+}
+
+.carousel-inner img {
+  max-width: 80%;
+  max-height: 800px;
+  object-fit: contain; /* Adjust this to maintain the aspect ratio */
+}
   
   .left-arrow, .right-arrow {
     position: absolute;
@@ -32,17 +37,17 @@
   }
   
   .left-arrow {
-    left: 10px;
+    left: 00px;
   }
   
   .right-arrow {
-    right: 10px;
+    right: 00px;
   }
   
   @media screen and (max-width: 968px) {
     .left-arrow, .right-arrow {
-      width: 10px;
-      height: 50px;
+      width: 40px;
+      height: 80px;
       
     }
     

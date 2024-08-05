@@ -1,6 +1,5 @@
 header {
-    background-color: #333;
-    color: white;
+    color: rgb(41, 41, 41);
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -8,13 +7,8 @@ header {
     padding: 0px 50px;
     margin: 0px;
     height: 120px;
-    position: fixed;
     width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 100;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.5);
 
 
 }
@@ -38,15 +32,15 @@ header {
 
 header .Link
 {
-    color: white;
+    color: rgb(27, 27, 27);
     text-decoration: none;
 }
 
 .header-logo
 {
-    width: 100px;
-    height: 100px;
-    margin: 10px;
+    width: 64px;
+    height: 64px;
+    margin: 2px;
     filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.541));
 
 }
@@ -59,11 +53,12 @@ header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0px 40px;
 }
 
 
 header nav a {
-    color: white;
+    color: rgb(22, 22, 22);
     text-decoration: none;
     padding: 1em;
 }
@@ -93,43 +88,45 @@ header button:hover
 }
 
 
-
-
-@media screen and (max-width: 900px) {
-
-
-    header {
+@media screen and (max-width: 768px)
+{
+    header
+    {
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: auto;
-        position: relative;
-
-    }
-    .header-logo-container h1 {
-        font-size: 2px;
+        height: 200px;
     }
 
-    .header-logo-container 
+    .header-logo-container
     {
         width: 100%;
-    }
-
-
-    header nav {
-        display: flex;
-        flex-direction: column;
-        margin: 24px 0px;
-    }
-
-    header .nav-item {
-        display: block;
-        padding: 15px;
         margin: 0px;
-        
+        padding: 0px;
     }
-    .header-logo
-{
-    position: relative;
+
+    header nav
+    {
+        flex-direction: column;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    header nav a
+    {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    header nav li
+    {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    header button
+    {
+        margin: 10px;
+    }
+    
 }
-}
+
+
