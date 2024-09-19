@@ -3,6 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config();
+const path = require('path');
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
 
 const app = express();
 app.use(cors());
@@ -24,6 +29,13 @@ const vizProjectRoutes = require('./routes/vizProject');
 const uploadRoutes = require('./routes/upload');
 const apiRoutes = require('./routes/api');
 
+app.use(express.static(path.join(__dirname, '../FrontEnd/build')));
+// Define a simple route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../FrontEnd/build', 'index.html'));
+});
+
+
 // Use routes
 app.use('/api', apiRoutes);
 app.use('/user', userRoutes);
@@ -34,7 +46,29 @@ app.get('/', (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Test connection
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Hello from the backend!' });
+});
+app.get('/test', (req, res) => {
+  console.log('Test connection successful');
+  res.send('Test connection successful');
+});
+
+const HTTP_PORT = process.env.HTTP_PORT || 80;
+const HTTPS_PORT = process.env.HTTPS_PORT || 443;
+
+// Create HTTP server
+http.createServer(app).listen(HTTP_PORT, '0.0.0.0', () => {
+  console.log(`HTTP Server is running on port ${HTTP_PORT}`);
+});
+
+// Create HTTPS server
+const sslOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/fullchain.pem'),
+};
+
+https.createServer(sslOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
+  console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
 });
