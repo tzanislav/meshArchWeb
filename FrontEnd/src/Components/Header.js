@@ -28,11 +28,12 @@ function Header() {
                 <div className="nav-item">
                     <Link to="/contacts">Contacts</Link>
                 </div>
-                <div className="nav-item">
-                    <Link to="/projects">Projects</Link>
-                </div>
+
                 {authToken ? (
                     <>
+                        <div className="nav-item">
+                            <Link to="/projects">Projects</Link>
+                        </div>
                         <div className="nav-item">
                             <Link to="/users">Users</Link>
                         </div>

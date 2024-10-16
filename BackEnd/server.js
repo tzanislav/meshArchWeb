@@ -1,9 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
@@ -24,27 +25,79 @@ mongoose.connect(process.env.MONGO_DB, {
   console.error('Error connecting to MongoDB:', error);
 });
 
+// User schema
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+});
+
+const User = mongoose.model('User', userSchema);
+
+// Register endpoint
+app.post('/user/register', async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Username already taken' });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user
+    const newUser = new User({ username, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Login endpoint
+app.post('/user/login', async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    // Find user by username
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid username or password' });
+    }
+
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid username or password' });
+    }
+
+    // Create JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+
+    res.status(200).json({ token });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Import routes
 const userRoutes = require('./routes/user');
 const vizProjectRoutes = require('./routes/vizProject');
 const uploadRoutes = require('./routes/upload');
 const apiRoutes = require('./routes/api');
 
+// Static files
 app.use(express.static(path.join(__dirname, '../FrontEnd/build')));
-// Define a simple route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../FrontEnd/build', 'index.html'));
 });
-
 
 // Use routes
 app.use('/api', apiRoutes);
 app.use('/user', userRoutes);
 app.use('/vizProject', vizProjectRoutes);
 app.use('/upload', uploadRoutes);
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
 
 // Test connection
 app.get('/api/test', (req, res) => {
