@@ -14,6 +14,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            console.log('username', username);
             const res = await axios.post('https://mesharch.studio/user/login', {
                 username,
                 password,
