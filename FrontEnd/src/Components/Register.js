@@ -15,8 +15,17 @@ const Register = () => {
       setMessage('Passwords do not match');
       return;
     }
+    //Validate email
+    const emailRegex = /\S+@\S+\.\S+/;
+    if(!emailRegex.test(username)){
+      setMessage('Invalid email');
+      return;
+    }
+
+    
+
     try {
-      await axios.post('http://mesharch.studio/user/register', {
+      await axios.post('https://mesharch.studio/user/register', {
         username,
         password,
       });
@@ -33,15 +42,17 @@ const Register = () => {
 
         <h2 className="register-title">Register</h2>
         {message && <p className="register-message">{message}</p>}
+
         <div className="input-group">
           <input
-            type="text"
+            type="email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
+            placeholder="Email"
             className="register-input"
           />
         </div>
+
         <div className="input-group">
           <input
             type="password"

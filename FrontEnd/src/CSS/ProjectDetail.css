@@ -1,44 +1,138 @@
-.project-detail-container .project-detail-container {
-    padding: 20px;
-  }
-  
-  .project-images img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  
-  .project-detail-container .project-image-wrapper
-{
-  width: 300px;
-  height: 300px;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 20px;
-
+.project-detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.project-detail-container .project-image-wrapper img 
-{
-  height: 300px;
-  height: 300px;
+.project-detail-container h2 {
+  font-size: 2rem;
   margin-bottom: 10px;
-  object-fit: cover;
+  color: #333;
 }
 
-.project-detail-container .project-image-wrapper button
-{
-  margin-top: 10px;
+.project-detail-container p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.project-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.project-image-wrapper {
+  position: relative;
+  width: calc(50% - 15px);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  padding-bottom: 40px; /* Adding space at the bottom for buttons */
+}
+
+.project-image-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-image-buttons {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-image-wrapper .delete-button {
   padding: 5px 10px;
-  color: #fff;
+  font-size: 0.9rem;
+  background-color: #f44336;
+  color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
-  background-color: #007bff;
-  width: 200px;
+  transition: background-color 0.3s;
+}
+
+.project-image-wrapper .delete-button:hover {
+  background-color: #d32f2f;
+}
+
+.project-image-wrapper .make-first-button {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.project-image-wrapper .make-first-button:hover {
+  background-color: #1565c0;
+}
+
+.image-upload {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.image-upload input[type="file"] {
+  padding: 5px;
+}
+
+.image-upload button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.image-upload button:hover {
+  background-color: #388e3c;
+}
+
+.project-info {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.project-name-input,
+.project-description-input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.update-project-button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.update-project-button:hover {
+  background-color: #1976d2;
 }
