@@ -16,7 +16,7 @@ const Register = () => {
       return;
     }
     try {
-      await axios.post('http://localhost/user/register', {
+      await axios.post('http://mesharch.studio/user/register', {
         username,
         password,
       });
