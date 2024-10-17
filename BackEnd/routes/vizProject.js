@@ -1,6 +1,19 @@
 const express = require('express');
+const multer = require('multer');
 const VizProject = require('../models/VizProject');
 const router = express.Router();
+
+// Configure multer for file storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Make sure the 'uploads' directory exists
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // Create a new VizProject
 router.post('/', async (req, res) => {
@@ -85,7 +98,29 @@ router.put('/:id/images/reorder', async (req, res) => {
     await vizProject.save();
     res.send(vizProject);
   } catch (error) {
+    console.error('Error reordering image:', error);
     res.status(500).send({ message: 'Error reordering image', error });
+  }
+});
+
+// Image upload endpoint
+router.post('/upload/:id/images', upload.single('image'), async (req, res) => {
+  try {
+    const vizProject = await VizProject.findById(req.params.id);
+    if (!vizProject) {
+      return res.status(404).send({ message: 'VizProject not found' });
+    }
+
+    // Add the image URL to the project's image URLs array
+    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    vizProject.urls.push(imageUrl);
+
+    // Save the updated project
+    await vizProject.save();
+    res.send(vizProject);
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).send({ message: 'Error uploading image', error });
   }
 });
 
