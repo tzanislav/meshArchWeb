@@ -25,64 +25,6 @@ mongoose.connect(process.env.MONGO_DB, {
   console.error('Error connecting to MongoDB:', error);
 });
 
-// User schema
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-});
-
-const User = mongoose.model('User', userSchema);
-
-// Register endpoint
-app.post('/user/register', async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    // Check if user already exists
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Username already taken' });
-    }
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create new user
-    const newUser = new User({ username, password: hashedPassword });
-    await newUser.save();
-
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (err) {
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-// Login endpoint
-app.post('/user/login', async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    // Find user by username
-    const user = await User.findOne({ username });
-    if (!user) {
-      console.log('Invalid username');
-      return res.status(400).json({ message: 'Invalid username or password' });
-    }
-
-    // Compare passwords
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      console.log('Invalid password');
-      return res.status(400).json({ message: 'Invalid username or password' });
-    }
-
-    // Create JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
-    console.log('User logged in successfully');
-    res.status(200).json({ token });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
 
 // Import routes
 const userRoutes = require('./routes/user');

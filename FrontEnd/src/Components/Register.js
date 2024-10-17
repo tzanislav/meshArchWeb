@@ -16,7 +16,7 @@ const Register = () => {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/user/register', {
+      await axios.post('http://localhost/user/register', {
         username,
         password,
       });
