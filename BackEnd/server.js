@@ -63,20 +63,23 @@ app.post('/user/login', async (req, res) => {
     // Find user by username
     const user = await User.findOne({ username });
     if (!user) {
+      console.log('Invalid username');
       return res.status(400).json({ message: 'Invalid username or password' });
     }
 
     // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      console.log('Invalid password');
       return res.status(400).json({ message: 'Invalid username or password' });
     }
 
     // Create JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
-
+    console.log('User logged in successfully');
     res.status(200).json({ token });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });
