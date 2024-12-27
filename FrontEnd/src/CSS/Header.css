@@ -76,6 +76,7 @@ header button:hover
     {
         flex-direction: column;
         height: 200px;
+        margin: 24px 0px;
     }
 
     .header-logo-container
