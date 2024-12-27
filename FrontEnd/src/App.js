@@ -29,6 +29,8 @@ function App() {
           <Route path="/project/:id" element={<ProjectView />} />
           <Route path="/contacts" element={<Contacts />} />
 
+          <Route path="*" element={<h1>Not Found</h1>} />
+
         </Routes>
         <Footer />
       </Router>

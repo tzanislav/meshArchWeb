@@ -1,0 +1,117 @@
+/* HeroImage.css */
+.hero-image {
+  position: relative;
+  margin-top: 50px;
+  overflow: hidden;
+  height: 100vh;
+  /* Your desired fixed height */
+  width: 100%;
+  /* Ensures it's always full width */
+}
+
+.hero-image img {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  /* Matches container's height */
+  width: auto;
+  /* Maintains aspect ratio */
+  min-width: 100vw;
+  /* Ensures it's never smaller than the screen width */
+}
+
+
+
+
+.back-layer {
+  animation: slideInBottom 0.5s forwards ease-out;
+}
+
+.front-layer {
+  animation: slideInRight 1.2s forwards ease-out;
+  /* Add delay for smooth sequence */
+}
+
+
+.hero-text {
+  text-align: left;
+  position: absolute;
+  top: 25%;
+  left: 8%;
+  transform: translate(-0%, -0%);
+  color: rgb(37, 37, 37);
+  width: 35%;
+  font-size: 16px;
+}
+
+.hero-text button {
+  font-size: 12px;
+  width: 240px;
+}
+
+.header-logo-container {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.hero-text h1 {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 0px;
+  margin: 0px;
+  font-size: 48px;
+}
+
+.header-logo {
+  height: 120px;
+  width: 120px;
+  margin: 0px;
+  filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.541));
+
+}
+
+/* Keyframes for animations */
+@keyframes slideInBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-image {
+    margin-top: 400px;
+  }
+
+  .hero-text {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -0%);
+  }
+}

@@ -8,6 +8,7 @@ const ProjectDetail = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [newImage, setNewImage] = useState(null);
+  const [message, setMessage] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
@@ -31,7 +32,10 @@ const ProjectDetail = () => {
   };
 
   const handleAddImage = async () => {
-    if (!newImage) return;
+    if (!newImage) {
+      setMessage('Please select an image to upload');
+      return;
+    }
 
     const formData = new FormData();
     formData.append('image', newImage);
@@ -44,7 +48,9 @@ const ProjectDetail = () => {
       });
       setProject(res.data);
       setNewImage(null);
+      setMessage('Image uploaded successfully');
     } catch (error) {
+      setMessage('Error uploading image');
       console.error('Error adding image', error);
     }
   };
@@ -64,7 +70,9 @@ const ProjectDetail = () => {
         url: urlToMove,
       });
       setProject(res.data);
+      setMessage('Image moved to the first position');
     } catch (error) {
+      setMessage('Error moving image to the first position');
       console.error('Error moving image to the first position', error);
     }
   };
@@ -76,7 +84,9 @@ const ProjectDetail = () => {
         description,
       });
       setProject(res.data);
+      setMessage('Project details updated successfully');
     } catch (error) {
+      setMessage('Error updating project details');
       console.error('Error updating project details', error);
     }
   };
@@ -88,7 +98,10 @@ const ProjectDetail = () => {
   return (
     <div className="project-detail-container">
       <Padding />
+
       <div className="project-info">
+        {message && <p className="project-message">{message}</p>}
+          
         <input
           type="text"
           value={name}
