@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const smtpServer = new SMTPServer({
     authOptional: true,
     onData(stream, session, callback) {
+        console.log('New email received');
         let emailData = '';
         stream.on('data', (chunk) => {
             emailData += chunk;
