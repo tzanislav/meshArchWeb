@@ -3,35 +3,46 @@ const nodemailer = require('nodemailer');
 
 const smtpServer = new SMTPServer({
     authOptional: true,
+    onRcptTo(address, session, callback) {
+        console.log('Recipient:', address.address);
+        if (address.address !== 'office@mesharch.studio') {
+            return callback(new Error('Invalid recipient address'));
+        }
+        callback();
+    },
     onData(stream, session, callback) {
-        console.log('New email received');
         let emailData = '';
         stream.on('data', (chunk) => {
             emailData += chunk;
         });
         stream.on('end', async () => {
             try {
-                // Relay email directly
+                // Forward the email to Gmail
                 const transporter = nodemailer.createTransport({
-                    host: 'smtp.gmail.com', // Replace with your relay server if needed
-                    port: 587,
-                    secure: false,
+                    service: 'gmail',
+                    auth: {
+                        user: 'your-gmail@gmail.com',
+                        pass: 'your-gmail-app-password', // Use an App Password
+                    },
                 });
 
                 await transporter.sendMail({
-                    from: session.envelope.mailFrom.address,
+                    from: 'office@mesharch.studio',
                     to: 'tzanislav@gmail.com',
-                    raw: emailData, // Send the original content
+                    subject: 'Forwarded Email',
+                    text: emailData, // Forward the full email body
                 });
 
+                console.log('Email forwarded to Gmail');
                 callback();
-            } catch (error) {
-                callback(error);
+            } catch (err) {
+                console.error('Error forwarding email:', err);
+                callback(err);
             }
         });
     },
 });
 
-smtpServer.listen(2525, () => {
-    console.log('SMTP server running on port 2525');
+smtpServer.listen(25, () => {
+    console.log('SMTP server is running on port 25');
 });
