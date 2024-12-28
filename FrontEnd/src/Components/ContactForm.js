@@ -35,9 +35,10 @@ const ContactForm = () => {
 
   return (
     <div className="contact-form">
-      <p>Tel: 0887 61 88 14</p>
+      <p>Tel: <a href="tel:+359887618814"> 0887 61 88 14</a></p>
+      <p>Email: <a href="mailto:office@meshArch.studio"> office@meshArch.studio</a></p>
       <a href="https://www.facebook.com/meshArchitecture" target="_blank" rel="noreferrer"> Facebook</a>
-      <br />
+
       
       <form onSubmit={handleSubmit}>
         <div className="form-contact">
