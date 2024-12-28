@@ -12,21 +12,29 @@ function Header() {
         window.location.reload();
     };
 
+    const smoothScroll = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <header>
 
-            <nav className="nav-container">
-                <div className="nav-item">
-                    <Link to="/">Протфолио</Link>
-                </div>
-
-                <div className="nav-item">
-                    <Link to="/contacts">Контакти</Link>
-                </div>
-
-                <div className="nav-item">
-                    <Link to="/about">Услуги</Link>
-                </div>
+<nav className="nav-container">
+            <div className="nav-item">
+                <a onClick={() => smoothScroll('home')}>Начало</a>
+            </div>
+            <div className="nav-item">
+                <a onClick={() => smoothScroll('services')}>Услуги</a>
+            </div>
+            <div className="nav-item">
+                <a onClick={() => smoothScroll('projects')}>Проекти</a>
+            </div>
+            <div className="nav-item">
+                <a onClick={() => smoothScroll('contact')}>Свържете се с нас</a>
+            </div>
 
                 {authToken && (
                     <>

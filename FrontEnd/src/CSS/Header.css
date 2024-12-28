@@ -12,6 +12,7 @@ header {
     height: 120px;
     width: 100%;
     box-sizing: border-box;
+    z-index: 1000;
 
 
 }
@@ -47,6 +48,7 @@ header nav a {
 
 header nav a:hover {
     background-color: #555;
+    cursor: pointer;
 }
 
 header nav li {
