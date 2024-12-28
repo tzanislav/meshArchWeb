@@ -10,9 +10,17 @@
   width: min(350px, 80%);
   margin: auto;
 }
+
+.contact-form a
+{
+  color: #333;
+  text-decoration: none;
+
+}
   
 .form-contact
 {
+  margin: 35px 0px;
   width: 40%;
 }
   

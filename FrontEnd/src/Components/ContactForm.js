@@ -1,11 +1,11 @@
 import React from "react";
-import { useState, useEffect } from 'react';
-import axios from '../axios-config';
-import emailjs from 'emailjs-com';
-import '../CSS/ContactForm.css';
+import { useState } from "react";
+import emailjs from "emailjs-com";
+import "../CSS/ContactForm.css";
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState(""); // For success/failure feedback
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,14 +14,31 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., send data to an API)
-    console.log('Form submitted:', formData);
+
+    emailjs
+      .send(
+        "service_ttev204", // Replace with your EmailJS Service ID
+        "template_2xhaf3m", // Replace with your EmailJS Template ID
+        formData,
+        "a91edKYS9lbhZMcTm" // Replace with your EmailJS API Key
+      )
+      .then(
+        () => {
+          setStatus("Message sent successfully!");
+          setFormData({ name: "", email: "", message: "" }); // Clear form
+        },
+        () => {
+          setStatus("Failed to send the message. Please try again.");
+        }
+      );
   };
 
   return (
     <div className="contact-form">
-      <p>email: test@gmail.com</p>
-      <p>tel: 0887 61 88 14</p>
+      <p>Tel: 0887 61 88 14</p>
+      <a href="https://www.facebook.com/meshArchitecture" target="_blank" rel="noreferrer"> Facebook</a>
+      <br />
+      
       <form onSubmit={handleSubmit}>
         <div className="form-contact">
           <div className="form-group">
@@ -57,8 +74,11 @@ const ContactForm = () => {
             required
           />
         </div>
-        <button type="submit" className="submit-button">Submit</button>
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
       </form>
+      {status && <p>{status}</p>}
     </div>
   );
 };

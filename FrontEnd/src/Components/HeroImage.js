@@ -5,6 +5,13 @@ import { Link } from 'react-router-dom';
 
 const HeroImage = () => {
 
+  const smoothScroll = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+
 
   return (
     <div>
@@ -15,7 +22,7 @@ const HeroImage = () => {
       <div className="hero-text">
         <h1>MESH ARCHITECTURE</h1>
         <p>Визуализацията за вашите проекти</p>
-        <button>Свържете се с нас!</button>
+        <button onClick={() => smoothScroll('contact')} >Свържете се с нас!</button>
       </div>
     </div>
   );
