@@ -35,3 +35,17 @@
 .post-footer {
     font-size: 10px;
 }
+
+@media screen and (max-width: 768px) {
+    .post-content {
+        flex-direction: column;
+    }
+
+    .post-content img {
+        height: 60vw;
+        width: 60vw;
+        margin-right: 0px;
+        margin-top: 0px;
+    }
+    
+}

@@ -11,3 +11,11 @@ footer
     z-index: 1000;
     box-sizing: border-box;
 }
+
+footer a
+{
+    font-size: 10px;
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+}
