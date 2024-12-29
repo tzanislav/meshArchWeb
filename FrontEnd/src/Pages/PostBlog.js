@@ -2,9 +2,11 @@ import React from 'react';
 import BlogPostForm from '../Components/BlogPostForm';
 import '../CSS/BlogPostForm.css';
 import Padding from '../Components/Padding';
-import {authToken} from '../context/AuthContext';}
+import { AuthContext } from '../context/AuthContext';
 
 function PostBlog() {
+
+      const { authToken } = React.useContext(AuthContext);
 
     if (!authToken) {
         window.location.href = '/login';
