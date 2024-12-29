@@ -54,7 +54,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 // Get all blogs
 router.get('/', async (req, res) => {
     try {
-        const blogs = await Blog.find();
+        const blogs = await Blog.find().sort({ createdAt: -1 });
         console.log("Got blogs");
         res.status(200).json(blogs);
     } catch (error) {

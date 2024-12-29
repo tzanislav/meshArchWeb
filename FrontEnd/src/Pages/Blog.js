@@ -18,7 +18,9 @@ function Blog() {
                 const res = await axios.get('/api/blog');
                 console.log(res.data); // Debug the response structure
                 if (Array.isArray(res.data)) {
-                    setPosts(res.data);
+                    // Sort posts by createdAt in descending order (newest first)
+                    const sortedPosts = res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    setPosts(sortedPosts);
                 } else {
                     setMessage('Unexpected response format.');
                 }
