@@ -24,7 +24,7 @@ function Header() {
 
             <nav className="nav-container">
                 <div className="nav-item">
-                    <a onClick={() => smoothScroll('home')}>Начало</a>
+                    <Link to="/">Начало</Link>
                 </div>
                 <div className="nav-item">
                     <a onClick={() => smoothScroll('services')}>Услуги</a>
@@ -35,12 +35,13 @@ function Header() {
                 <div className="nav-item">
                     <a onClick={() => smoothScroll('contact')}>Свържете се с нас</a>
                 </div>
+                <div className="nav-item">
+                    <Link to="/blog">Blog</Link>
+                </div>
 
                 {authToken && (
                     <>
-                        <div className="nav-item">
-                            <Link to="/blog">Blog</Link>
-                        </div>
+
                         <div className="nav-item">
                             <Link to="/projects">Projects</Link>
                         </div>
