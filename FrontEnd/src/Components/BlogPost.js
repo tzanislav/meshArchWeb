@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../axios-config';
+import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 function BlogPost({ id }) {
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
+    const { authToken } = React.useContext(AuthContext);
+    
+
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const res = await axios.get(`/api/blogs/${id}`);
+                const res = await axios.get(`/api/blog/${id}`);
                 setPost(res.data);
                 setLoading(false);
             } catch (err) {
@@ -22,19 +27,44 @@ function BlogPost({ id }) {
         fetchPost();
     }, [id]);
 
+    const deletePost = async () => {
+        try {
+            await axios.delete(`/api/blog/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                },
+
+
+            });
+            window.location.reload();
+        } catch (err) {
+            console.error('Error deleting blog post:', err);
+            setError('Error deleting blog post.');
+        }
+    }
+
     if (loading) return <p>Loading blog post...</p>;
     if (error) return <p>{error}</p>;
 
     return (
         <div className="blog-post">
+            <h5>{post.createdAt.split('T')[0]}</h5>
             <h3>{post.title}</h3>
             <div className='post-content'>
                 <img src={post.image} alt={post.title} />
-                <p>{post.content}</p>
+                <p>{post.content} <br></br><br></br>
+                <p>{post.source}</p>
+                <a href={post.source}>Прочетете още.</a></p>
             </div>
             <div className='post-footer'>
+                
                 <p>By {post.author}</p>
             </div>
+            {authToken && (
+                <div className='post-footer'>
+                    <button onClick={deletePost}>Delete</button>
+                </div>
+            )}
         </div>
     );
 }

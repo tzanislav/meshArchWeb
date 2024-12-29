@@ -1,9 +1,10 @@
 import React from "react";
 
-function Padding() {
+function Padding({size}) {
+
 
     return (
-        <div style={{height: "200px", width: "100%"}  }>
+        <div style={{ height: size, width: "100%" }}>
         </div>
     );
 

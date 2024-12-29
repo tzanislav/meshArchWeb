@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../axios-config';
 import '../CSS/BlogPostForm.css';
 
 const BlogPostForm = () => {
@@ -8,6 +8,7 @@ const BlogPostForm = () => {
     const [author, setAuthor] = useState('');
     const [image, setImage] = useState(null);
     const [status, setStatus] = useState('');
+    const [source, setSource] = useState('');
 
     const handleImageChange = (e) => {
         setImage(e.target.files[0]);
@@ -26,9 +27,10 @@ const BlogPostForm = () => {
         formData.append('content', content);
         formData.append('author', author);
         formData.append('image', image);
+        formData.append('source', source);
 
         try {
-            const response = await axios.post('/api/blogs', formData, {
+            const response = await axios.post('/api/blog', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             setStatus('Blog post created successfully!');
@@ -66,6 +68,15 @@ const BlogPostForm = () => {
                         type="text"
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className='form-group'>
+                    <label>Source:</label>
+                    <input
+                        type="text"
+                        value={source}
+                        onChange={(e) => setSource(e.target.value)}
                         required
                     />
                 </div>

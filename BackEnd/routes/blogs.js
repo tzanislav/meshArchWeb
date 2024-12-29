@@ -37,6 +37,7 @@ router.post('/', upload.single('image'), async (req, res) => {
             title,
             content,
             author,
+            source,
             image: imageUrl, // Save S3 URL in the database
         });
 
@@ -74,11 +75,11 @@ router.get('/:id', async (req, res) => {
 
 // Update a blog
 router.put('/:id', async (req, res) => {
-    const { title, image, content, author } = req.body;
+    const { title, image, content, author, source } = req.body;
     try {
         const updatedBlog = await Blog.findByIdAndUpdate(
             req.params.id,
-            { title, image, content, author, updatedAt: Date.now() },
+            { title, image, content, author, source, updatedAt: Date.now() },
             { new: true, runValidators: true }
         );
         if (!updatedBlog) return res.status(404).json({ error: 'Blog not found' });
