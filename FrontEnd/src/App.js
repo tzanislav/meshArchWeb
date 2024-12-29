@@ -14,6 +14,7 @@ import ProjectView from './Components/ProjectView';
 import Footer from './Components/Footer';
 import Blog from './Pages/Blog';
 import PostBlog from './Pages/PostBlog';
+import BlogArticle from './Pages/BlogArticle';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/post-blog" element={<PostBlog />} />
           <Route path="/edit-blog/:_id" element={<PostBlog />} />
+          <Route path="/blog/:id" element={<BlogArticle />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
         <Footer />

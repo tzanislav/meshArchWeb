@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import '../CSS/Header.css';
 import { AuthContext } from '../context/AuthContext';
 
-
 function Header() {
     const { authToken } = React.useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const signOut = () => {
         localStorage.removeItem('authToken');
@@ -13,15 +14,23 @@ function Header() {
     };
 
     const smoothScroll = (id) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+        const navigateAndScroll = () => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        };
+
+        if (location.pathname !== "/") {
+            navigate("/");
+            setTimeout(navigateAndScroll, 100); // Delay to ensure the home page loads
+        } else {
+            navigateAndScroll();
         }
     };
 
     return (
         <header>
-
             <nav className="nav-container">
                 <div className="nav-item">
                     <Link to="/">Начало</Link>
@@ -41,7 +50,6 @@ function Header() {
 
                 {authToken && (
                     <>
-
                         <div className="nav-item">
                             <Link to="/projects">Projects</Link>
                         </div>
