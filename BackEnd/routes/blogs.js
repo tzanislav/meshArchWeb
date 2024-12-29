@@ -73,43 +73,46 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+
 // Update a blog
-router.put('/:id', async (req, res) => {
-    let { title, image, content, author, source } = req.body; // Use `let` for `image`
-    console.log("Updating blog:   " + req.params);
-    if (!image) {
-        // Fetch existing image if not provided in the request
-        const existingBlog = await Blog.findById(req.params.id);
-        if (!existingBlog) return res.status(404).json({ error: 'Blog not found' });
-        image = existingBlog.image;
-        console.log("Existing image:   " + image);
-    } else {
-        // Handle new image upload
-        const file = req.file; // Single file from 'image' field
-        if (!file) return res.status(400).send('No image file provided.');
-
-        const fileName = `blog_${Date.now()}-${file.originalname}`;
-        const params = {
-            Bucket: process.env.S3_BUCKET_NAME,
-            Key: fileName,
-            Body: file.buffer,
-            ContentType: file.mimetype,
-        };
-
-        const command = new PutObjectCommand(params);
-        await s3.send(command);
-
-        const imageUrl = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
-        console.log('Image uploaded to S3:', imageUrl);
-        image = imageUrl;
-    }
-
+router.put('/:id', upload.single('image'), async (req, res) => {
     try {
+        let { title, content, author, source } = req.body; // Parse fields from req.body
+        let image = req.body.image; // Handle image URL if passed
+
+        console.log("Updating Title: " + title);
+        console.log("Request Body:", req.body);
+        console.log("File:", req.file);
+
+        if (!image && req.file) {
+            // Handle new image upload to S3
+            const fileName = `blog_${Date.now()}-${req.file.originalname}`;
+            const params = {
+                Bucket: process.env.S3_BUCKET_NAME,
+                Key: fileName,
+                Body: req.file.buffer,
+                ContentType: req.file.mimetype,
+            };
+
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+
+            image = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+            console.log('Image uploaded to S3:', image);
+        } else if (!image) {
+            // Fetch existing image if none provided
+            const existingBlog = await Blog.findById(req.params.id);
+            if (!existingBlog) return res.status(404).json({ error: 'Blog not found' });
+            image = existingBlog.image;
+            console.log("Existing image retained:", image);
+        }
+
         const blog = await Blog.findById(req.params.id);
         if (!blog) {
             return res.status(404).json({ error: 'Blog not found' });
         }
 
+        // Update blog fields
         blog.title = title;
         blog.content = content;
         blog.author = author;
@@ -117,11 +120,13 @@ router.put('/:id', async (req, res) => {
         blog.image = image;
         blog.updatedAt = Date.now();
 
+        // Save updated blog
         await blog.save();
-        console.log("Updated blog:   " + req.params.id);
-        if (!blog) return res.status(404).json({ error: 'Blog not found' });
+        console.log("Updated blog:", blog);
+
         res.status(200).json(blog);
     } catch (error) {
+        console.error("Error updating blog post:", error);
         res.status(400).json({ error: error.message });
     }
 });

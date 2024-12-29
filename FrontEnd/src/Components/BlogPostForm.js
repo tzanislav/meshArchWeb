@@ -64,7 +64,10 @@ const BlogPostForm = ({ id }) => {
                 console.log(response.data);
             } else {
                 // Update existing blog post
-                console.log('Updating post:', id);
+                console.log('FormData Content:');
+                for (let [key, value] of formData.entries()) {
+                    console.log(key, value);
+                }
                 const response = await axios.put(`/api/blog/${id}`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
@@ -87,8 +90,10 @@ const BlogPostForm = ({ id }) => {
                     <input
                         type="text"
                         value={title}
-                        onChange={(e) => {setTitle(e.target.value);
-                            console.log('Title updated:', e.target.value);}
+                        onChange={(e) => {
+                            setTitle(e.target.value);
+                            console.log('Title updated:', e.target.value);
+                        }
                         }
                         required
                     />

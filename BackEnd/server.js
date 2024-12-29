@@ -70,6 +70,7 @@ http.createServer(app).listen(HTTP_PORT, '0.0.0.0', () => {
   console.log(`HTTP Server is running on port ${HTTP_PORT}`);
 });
 
+if(process.env.DEV_MODE != 'development') {
 
 // Create HTTPS server
 const sslOptions = {
@@ -80,3 +81,5 @@ const sslOptions = {
 https.createServer(sslOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
   console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
 });
+
+}
