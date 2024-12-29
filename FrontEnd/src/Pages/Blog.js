@@ -35,11 +35,13 @@ function Blog() {
         fetchPosts();
     }, []);
 
+
+
     return (
         <div>
             <div className='blog-container'>
                 <Padding size="80px"/>
-
+                <h1>Новини</h1>
                 {authToken && (
                     <div className='new-post-button'>
                         <Padding size="150px"/>

@@ -17,7 +17,7 @@ function BlogPost({ id }) {
     function limitContentLength(content, wordLimit = 100) {
         const words = content.split(' '); // Split content into words
         if (words.length > wordLimit) {
-            return words.slice(0, wordLimit).join(' ') + '...'; // Join first 100 words and add ellipsis
+            return words.slice(0, wordLimit).join(' ') + '  ...'; // Join first 100 words and add ellipsis
         }
         return content; // If less than 100 words, return as is
     }
@@ -64,14 +64,13 @@ function BlogPost({ id }) {
             <h3>{post.title}</h3>
             {authToken && <Link to={`/edit-blog/${id}`}>Edit</Link>}
             <div className='post-content'>
-                <img src={post.image} alt={post.title} />
-                <div>
+            <Link to={`/blog/${id}`}><img src={post.image} alt={post.title} /></Link>
+                <div className='post-text'>
                     <p>{limitContentLength( stripHTMLTags(post.content), 50)} </p> <br></br><br></br>
                     <Link to={`/blog/${id}`}>Прочетете още.</Link>
                 </div>
             </div>
             <div className='post-footer'>
-
                 <p>By {post.author}</p>
             </div>
             {authToken && (
