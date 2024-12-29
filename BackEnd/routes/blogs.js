@@ -76,7 +76,7 @@ router.get('/:id', async (req, res) => {
 // Update a blog
 router.put('/:id', async (req, res) => {
     let { title, image, content, author, source } = req.body; // Use `let` for `image`
-
+    console.log("Updating blog:   " + req.params.id);
     if (!image) {
         // Fetch existing image if not provided in the request
         const existingBlog = await Blog.findById(req.params.id);
@@ -113,7 +113,7 @@ router.put('/:id', async (req, res) => {
         blog.content = content;
         blog.author = author;
         blog.source = source;
-        blog.image = image || blog.image; // Keep existing image if none provided
+        blog.image = image;
         blog.updatedAt = Date.now();
 
         await blog.save();
