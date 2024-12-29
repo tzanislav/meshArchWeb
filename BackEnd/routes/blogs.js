@@ -32,7 +32,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         console.log('Image uploaded to S3:', imageUrl);
 
         // Save blog post with image URL
-        const { title, content, author } = req.body; // Extract form data
+        const { title, content, author, source } = req.body; // Extract form data
         const newBlog = new Blog({
             title,
             content,
