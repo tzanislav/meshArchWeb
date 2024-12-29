@@ -30,6 +30,7 @@ function App() {
           <Route path="/project/:id" element={<ProjectView />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/post-blog" element={<PostBlog />} />
+          <Route path="/edit-blog/:_id" element={<PostBlog />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
         <Footer />

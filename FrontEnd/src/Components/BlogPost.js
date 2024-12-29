@@ -50,6 +50,7 @@ function BlogPost({ id }) {
         <div className="blog-post">
             <h5>{post.createdAt.split('T')[0]}</h5>
             <h3>{post.title}</h3>
+            <Link to={`/edit-blog/${id}`}>Edit</Link>
             <div className='post-content'>
                 <img src={post.image} alt={post.title} />
                 <p>{post.content} <br></br><br></br>
@@ -61,6 +62,7 @@ function BlogPost({ id }) {
             </div>
             {authToken && (
                 <div className='post-footer'>
+                    
                     <button onClick={deletePost}>Delete</button>
                 </div>
             )}

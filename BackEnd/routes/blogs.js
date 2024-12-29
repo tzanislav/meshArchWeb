@@ -76,6 +76,30 @@ router.get('/:id', async (req, res) => {
 // Update a blog
 router.put('/:id', async (req, res) => {
     const { title, image, content, author, source } = req.body;
+
+    if(!image) {
+        image = await Blog.findById(req.params.id).image;
+    }
+    else {
+        const file = req.file; // Single file from 'image' field
+        if (!file) return res.status(400).send('No image file provided.');
+
+        const fileName = `blog_${Date.now()}-${file.originalname}`;
+        const params = {
+            Bucket: process.env.S3_BUCKET_NAME,
+            Key: fileName,
+            Body: file.buffer,
+            ContentType: file.mimetype,
+        };
+
+        const command = new PutObjectCommand(params);
+        await s3.send(command);
+
+        const imageUrl = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+        console.log('Image uploaded to S3:', imageUrl);
+        image = imageUrl;
+    }
+
     try {
         const updatedBlog = await Blog.findByIdAndUpdate(
             req.params.id,
