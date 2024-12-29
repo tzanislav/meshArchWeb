@@ -109,6 +109,7 @@ router.put('/:id', async (req, res) => {
             { title, image, content, author, source, updatedAt: Date.now() },
             { new: true, runValidators: true }
         );
+        console.log("Updated blog:   "  + req.params.id);
         if (!updatedBlog) return res.status(404).json({ error: 'Blog not found' });
         res.status(200).json(updatedBlog);
     } catch (error) {
