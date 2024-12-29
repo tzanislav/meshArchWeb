@@ -7,5 +7,10 @@ router.get('/mailKey', (req, res) => {
 
 });
 
+router.get('/', (req, res) => {
+    res.send('Hello from the API backend!');
+}
+);
+
 
 module.exports = router;

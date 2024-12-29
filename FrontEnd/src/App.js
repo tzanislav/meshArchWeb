@@ -12,7 +12,8 @@ import ProjectList from './Components/ProjectList';
 import ProjectDetail from './Components/ProjectDetail';
 import ProjectView from './Components/ProjectView';
 import Footer from './Components/Footer';
-import Contacts from './Pages/Contacts';
+import Blog from './Pages/Blog';
+import PostBlog from './Pages/PostBlog';
 
 function App() {
   return (
@@ -27,10 +28,9 @@ function App() {
           <Route path="/projects" element={<ProjectList />} />
           <Route path="/edit-project/:id" element={<ProjectDetail />} />
           <Route path="/project/:id" element={<ProjectView />} />
-          <Route path="/contacts" element={<Contacts />} />
-
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/post-blog" element={<PostBlog />} />
           <Route path="*" element={<h1>Not Found</h1>} />
-
         </Routes>
         <Footer />
       </Router>

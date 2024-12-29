@@ -10,7 +10,11 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
+
+
+
 const app = express();
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -18,12 +22,12 @@ mongoose.connect(process.env.MONGO_DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => {
-  console.log('Successfully connected to MongoDB');
-})
-.catch((error) => {
-  console.error('Error connecting to MongoDB:', error);
-});
+  .then(() => {
+    console.log('Successfully connected to MongoDB');
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
 
 
 // Import routes
@@ -31,18 +35,14 @@ const userRoutes = require('./routes/user');
 const vizProjectRoutes = require('./routes/vizProject');
 const uploadRoutes = require('./routes/upload');
 const apiRoutes = require('./routes/api');
-
-// Static files
-app.use(express.static(path.join(__dirname, '../FrontEnd/build')));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../FrontEnd/build', 'index.html'));
-});
+const blogRoutes = require('./routes/blogs');
 
 // Use routes
 app.use('/api', apiRoutes);
 app.use('/user', userRoutes);
 app.use('/vizProject', vizProjectRoutes);
 app.use('/upload', uploadRoutes);
+app.use('/api/blog', blogRoutes);
 
 // Test connection
 app.get('/api/test', (req, res) => {
@@ -53,6 +53,15 @@ app.get('/test', (req, res) => {
   res.send('Test connection successful');
 });
 
+
+// Static files
+app.use(express.static(path.join(__dirname, '../FrontEnd/build')));
+
+// Catch-all route for React
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../FrontEnd/build', 'index.html'));
+});
+
 const HTTP_PORT = process.env.HTTP_PORT || 80;
 const HTTPS_PORT = process.env.HTTPS_PORT || 443;
 
@@ -61,12 +70,14 @@ http.createServer(app).listen(HTTP_PORT, '0.0.0.0', () => {
   console.log(`HTTP Server is running on port ${HTTP_PORT}`);
 });
 
-// Create HTTPS server
-const sslOptions = {
-  key: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/fullchain.pem'),
-};
+if (!process.env.DEV_MODE == "development") {
+  // Create HTTPS server
+  const sslOptions = {
+    key: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/fullchain.pem'),
+  };
 
-https.createServer(sslOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
-  console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
-});
+  https.createServer(sslOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
+    console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
+  });
+}
