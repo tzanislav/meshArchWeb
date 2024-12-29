@@ -53,7 +53,6 @@ function BlogPost({ id }) {
             <div className='post-content'>
                 <img src={post.image} alt={post.title} />
                 <p>{post.content} <br></br><br></br>
-                <p>{post.source}</p>
                 <a href={post.source}>Прочетете още.</a></p>
             </div>
             <div className='post-footer'>
