@@ -76,12 +76,13 @@ router.get('/:id', async (req, res) => {
 // Update a blog
 router.put('/:id', async (req, res) => {
     let { title, image, content, author, source } = req.body; // Use `let` for `image`
-    console.log("Updating blog:   " + req.params.id);
+    console.log("Updating blog:   " + req.params);
     if (!image) {
         // Fetch existing image if not provided in the request
         const existingBlog = await Blog.findById(req.params.id);
         if (!existingBlog) return res.status(404).json({ error: 'Blog not found' });
         image = existingBlog.image;
+        console.log("Existing image:   " + image);
     } else {
         // Handle new image upload
         const file = req.file; // Single file from 'image' field
