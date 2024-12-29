@@ -104,14 +104,22 @@ router.put('/:id', async (req, res) => {
     }
 
     try {
-        const updatedBlog = await Blog.findByIdAndUpdate(
-            req.params.id,
-            { title, image, content, author, source, updatedAt: Date.now() },
-            { new: true, runValidators: true }
-        );
-        console.log("Updated blog:   "  + req.params.id);
-        if (!updatedBlog) return res.status(404).json({ error: 'Blog not found' });
-        res.status(200).json(updatedBlog);
+        const blog = await Blog.findById(req.params.id);
+        if (!blog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+
+        blog.title = title;
+        blog.content = content;
+        blog.author = author;
+        blog.source = source;
+        blog.image = image || blog.image; // Keep existing image if none provided
+        blog.updatedAt = Date.now();
+
+        await blog.save();
+        console.log("Updated blog:   " + req.params.id);
+        if (!blog) return res.status(404).json({ error: 'Blog not found' });
+        res.status(200).json(blog);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

@@ -17,6 +17,7 @@ const BlogPostForm = ({ id }) => {
             if (id) {
                 try {
                     const response = await axios.get(`/api/blog/${id}`);
+                    console.log('Fetched post:');
                     setTitle(response.data.title);
                     setContent(response.data.content);
                     setAuthor(response.data.author);
@@ -52,6 +53,7 @@ const BlogPostForm = ({ id }) => {
         }
         formData.append('source', source);
 
+        console.log('Form data:', formData);
         try {
             if (!id) {
                 // Create new blog post
@@ -62,6 +64,7 @@ const BlogPostForm = ({ id }) => {
                 console.log(response.data);
             } else {
                 // Update existing blog post
+                console.log('Updating post:', id);
                 const response = await axios.put(`/api/blog/${id}`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
@@ -84,7 +87,9 @@ const BlogPostForm = ({ id }) => {
                     <input
                         type="text"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {setTitle(e.target.value);
+                            console.log('Title updated:', e.target.value);}
+                        }
                         required
                     />
                 </div>
@@ -111,7 +116,7 @@ const BlogPostForm = ({ id }) => {
                         type="text"
                         value={source}
                         onChange={(e) => setSource(e.target.value)}
-                        required={!id} // Required only for new posts
+                        required
                     />
                 </div>
                 <div className='form-group'>
