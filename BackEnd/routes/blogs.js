@@ -75,12 +75,15 @@ router.get('/:id', async (req, res) => {
 
 // Update a blog
 router.put('/:id', async (req, res) => {
-    const { title, image, content, author, source } = req.body;
+    let { title, image, content, author, source } = req.body; // Use `let` for `image`
 
-    if(!image) {
-        image = await Blog.findById(req.params.id).image;
-    }
-    else {
+    if (!image) {
+        // Fetch existing image if not provided in the request
+        const existingBlog = await Blog.findById(req.params.id);
+        if (!existingBlog) return res.status(404).json({ error: 'Blog not found' });
+        image = existingBlog.image;
+    } else {
+        // Handle new image upload
         const file = req.file; // Single file from 'image' field
         if (!file) return res.status(400).send('No image file provided.');
 
@@ -112,6 +115,7 @@ router.put('/:id', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+
 
 // Delete a blog
 router.delete('/:id', async (req, res) => {
