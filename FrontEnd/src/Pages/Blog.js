@@ -37,8 +37,10 @@ function Blog() {
         <div>
             <div className='blog-container'>
                 <Padding size="80px"/>
+
                 {authToken && (
                     <div className='new-post-button'>
+                        <Padding size="150px"/>
                         <Link to='/post-blog'>New Post</Link>
                     </div>
                 )}
