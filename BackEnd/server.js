@@ -9,9 +9,7 @@ const path = require('path');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-
-
-
+const RSS = require('rss');
 
 const app = express();
 
@@ -93,16 +91,16 @@ http.createServer(app).listen(HTTP_PORT, '0.0.0.0', () => {
   console.log(`HTTP Server is running on port ${HTTP_PORT}`);
 });
 
-if(process.env.DEV_MODE != 'development') {
+if (process.env.DEV_MODE != 'development') {
 
-// Create HTTPS server
-const sslOptions = {
-  key: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/fullchain.pem'),
-};
+  // Create HTTPS server
+  const sslOptions = {
+    key: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/fullchain.pem'),
+  };
 
-https.createServer(sslOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
-  console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
-});
+  https.createServer(sslOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
+    console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
+  });
 
 }
