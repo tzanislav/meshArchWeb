@@ -70,14 +70,31 @@ router.get('/rss', async (req, res) => {
 
     posts.forEach((post) => {
         feed.item({
-            title: post.title,
-            description: post.content.slice(0, 150) + '...', // Add a snippet for preview
-            url: `https://mesharch.studio/blog/${post._id}`, // Link to the post
+            title: post.title, // Post title
+            description: post.content.slice(0, 150) + '...', // Short preview for Feedly's summary display
+            url: `https://mesharch.studio/blog/${post._id}`, // Link to the full article
             date: post.createdAt, // Publication date
+            // Full content using content:encoded
             custom_elements: [
-                { 'content:encoded': `<![CDATA[${post.content}]]>` },
+                { 'content:encoded': `<![CDATA[
+                    <h1>${post.title}</h1>
+                    ${post.content}
+                    <img src="${post.image}" alt="${post.title}" />
+                ]]>` },
             ],
-            enclosure: { url: post.image, type: 'image/jpeg' }, // Image for the post
+            // Use enclosure for image thumbnail
+            enclosure: {
+                url: post.image,
+                type: 'image/jpeg',
+            },
+            // Add optional media:content for enhanced multimedia support in Feedly
+            custom_elements: [
+                {
+                    'media:content': {
+                        _attr: { url: post.image, type: 'image/jpeg' },
+                    },
+                },
+            ],
         });
     });
     
