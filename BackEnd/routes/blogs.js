@@ -60,7 +60,7 @@ router.get('/rss', async (req, res) => {
         title: 'Mesh Architectures Blog',
         description: 'Updates from Your Blog',       
         feed_url: 'https://mesharch.studio/api/blog/rss',
-        site_url: 'https://mesharch.studio',
+        site_url: 'https://mesharch.studio/blog',
         language: 'en',
     });
 
