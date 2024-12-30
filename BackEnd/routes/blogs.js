@@ -58,8 +58,7 @@ router.get('/rss', async (req, res) => {
     console.log('Generating RSS feed');
     const feed = new RSS({
         title: 'Mesh Architectures Blog',
-        description: 'Updates from Your Blog',
-        
+        description: 'Updates from Your Blog',       
         feed_url: 'https://mesharch.studio/api/blog/rss',
         site_url: 'https://mesharch.studio',
         language: 'en',
@@ -68,16 +67,20 @@ router.get('/rss', async (req, res) => {
     // Fetch blog posts from MongoDB
     const posts = await Blog.find().sort({ createdAt: -1 }).limit(10);
 
+
     posts.forEach((post) => {
         feed.item({
             title: post.title,
-            description: post.content.slice(0, 150) + '...', // Add a snippet
+            description: post.content.slice(0, 150) + '...', // Add a snippet for preview
             url: `https://mesharch.studio/blog/${post._id}`, // Link to the post
-            date: post.createdAt,
-            
-            enclosure: { url: post.image, type: 'image/jpeg' },
+            date: post.createdAt, // Publication date
+            custom_elements: [
+                { 'content:encoded': `<![CDATA[${post.content}]]>` },
+            ],
+            enclosure: { url: post.image, type: 'image/jpeg' }, // Image for the post
         });
     });
+    
     res.set('Content-Type', 'application/rss+xml');
     res.send(feed.xml());
 });
