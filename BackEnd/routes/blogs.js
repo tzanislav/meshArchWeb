@@ -7,6 +7,9 @@ const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 
 const upload = multer(); // Multer configuration for handling file uploads
 const s3 = new S3Client({ region: process.env.AWS_REGION });
+const RSS = require('rss');
+const { route } = require('./user');
+
 
 // Routes
 
@@ -49,6 +52,35 @@ router.post('/', upload.single('image'), async (req, res) => {
         console.error('Error:', error);
         res.status(500).send(error.message);
     }
+});
+
+router.get('/rss', async (req, res) => {
+    console.log('Generating RSS feed');
+    const feed = new RSS({
+        title: 'Your Blog Title',
+        description: 'Updates from Your Blog',
+        feed_url: 'https://mesharch.studio/rss',
+        site_url: 'https://mesharch.studio',
+        language: 'en',
+    });
+
+    // Fetch blog posts from MongoDB
+    const posts = await Blog.find().sort({ createdAt: -1 }).limit(10);
+
+    posts.forEach((post) => {
+        feed.item({
+            title: post.title,
+            description: post.content.slice(0, 150) + '...', // Add a snippet
+            url: `https:/mesharch.studio/blog/${post._id}`, // Link to the post
+            date: post.createdAt,
+        });
+    });
+    res.set('Content-Type', 'application/rss+xml');
+    res.send(feed.xml());
+});
+
+router.get('/test', (req, res) => {  
+    res.json({ message: 'Hello from the backend!' });
 });
 
 // Get all blogs
@@ -142,5 +174,8 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+
 
 module.exports = router;

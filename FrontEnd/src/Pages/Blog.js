@@ -44,7 +44,7 @@ function Blog() {
                 <Padding size="80px" />
                 <h1>Новини</h1>
 
-                <a href="https://mesharch.studio/rss" target="_blank">
+                <a href="https://mesharch.studio/api/blog/rss" target="_blank">
                     <h5> RSS Feed</h5>
                 </a>
 
