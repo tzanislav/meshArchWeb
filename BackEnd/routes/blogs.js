@@ -57,9 +57,9 @@ router.post('/', upload.single('image'), async (req, res) => {
 router.get('/rss', async (req, res) => {
     console.log('Generating RSS feed');
     const feed = new RSS({
-        title: 'Your Blog Title',
+        title: 'Mesh Architectures Blog',
         description: 'Updates from Your Blog',
-        feed_url: 'https://mesharch.studio/rss',
+        feed_url: 'https://mesharch.studio/api/blog/rss',
         site_url: 'https://mesharch.studio',
         language: 'en',
     });
@@ -73,6 +73,7 @@ router.get('/rss', async (req, res) => {
             description: post.content.slice(0, 150) + '...', // Add a snippet
             url: `https:/mesharch.studio/blog/${post._id}`, // Link to the post
             date: post.createdAt,
+            enclosure: { url: post.image, type: 'image/jpeg' },
         });
     });
     res.set('Content-Type', 'application/rss+xml');
