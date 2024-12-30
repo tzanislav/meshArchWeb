@@ -53,6 +53,29 @@ app.get('/test', (req, res) => {
   res.send('Test connection successful');
 });
 
+app.get('/rss', async (req, res) => {
+  const feed = new RSS({
+    title: 'Your Blog Title',
+    description: 'Updates from Your Blog',
+    feed_url: 'https://mesharch.studio/rss',
+    site_url: 'https://mesharch.studio',
+    language: 'en',
+  });
+
+  // Fetch blog posts from MongoDB
+  const posts = await BlogPost.find().sort({ createdAt: -1 }).limit(10);
+
+  posts.forEach((post) => {
+    feed.item({
+      title: post.title,
+      description: post.content.slice(0, 150) + '...', // Add a snippet
+      url: `https:/mesharch.studio/blog/${post._id}`, // Link to the post
+      date: post.createdAt,
+    });
+  });
+  res.set('Content-Type', 'application/rss+xml');
+  res.send(feed.xml());
+});
 
 // Static files
 app.use(express.static(path.join(__dirname, '../FrontEnd/build')));

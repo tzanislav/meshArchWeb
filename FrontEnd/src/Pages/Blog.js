@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import '../CSS/Blog.css';
 
 function Blog() {
+
     const [posts, setPosts] = useState([]); // Ensure default is an array
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(true);
@@ -40,11 +41,16 @@ function Blog() {
     return (
         <div>
             <div className='blog-container'>
-                <Padding size="80px"/>
+                <Padding size="80px" />
                 <h1>Новини</h1>
+
+                <a href="https://mesharch.studio/rss" target="_blank">
+                    <h5> RSS Feed</h5>
+                </a>
+
                 {authToken && (
                     <div className='new-post-button'>
-                        <Padding size="150px"/>
+                        <Padding size="150px" />
                         <Link to='/post-blog'>New Post</Link>
                     </div>
                 )}
