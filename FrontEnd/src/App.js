@@ -15,6 +15,7 @@ import Footer from './Components/Footer';
 import Blog from './Pages/Blog';
 import PostBlog from './Pages/PostBlog';
 import BlogArticle from './Pages/BlogArticle';
+import Sitemap from './Pages/Sitemap';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/post-blog" element={<PostBlog />} />
           <Route path="/edit-blog/:_id" element={<PostBlog />} />
           <Route path="/blog/:id" element={<BlogArticle />} />
+          <Route path="/sitemap" element={<Sitemap />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
         <Footer />

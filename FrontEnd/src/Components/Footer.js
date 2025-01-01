@@ -8,9 +8,8 @@ function Footer() {
         <footer>
             <p>© 2024 Mesh Architecture</p>
             <div className="footer-links">
-                <Link to="/terms">Terms of Service</Link>
-                <Link to="/privacy">Privacy Policy</Link>
                 <Link to="/login">Login</Link>
+                <Link to="/sitemap">Site Map</Link>
             </div>
         </footer>
     );
