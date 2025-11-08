@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Mesh Architectures Blog]]></title>
+        <description><![CDATA[Updates from Your Blog]]></description>
+        <link>https://mesharch.studio</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Mon, 30 Dec 2024 21:14:29 GMT</lastBuildDate>
+        <atom:link href="https://mesharch.studio/api/blog/rss" rel="self" type="application/rss+xml" />
+        <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[Голямото обновяване на Летище София: нов терминал и 150% ръст на търговските площи]]></title>
+            <description><![CDATA[София е на прага на голяма трансформация. С икономически растеж от 2.4% за 2024 г., страната изпреварва средното за Европейския съюз ниво от 0.9%. В т...]]></description>
+            <link>https://mesharch.studio/blog/6772d85ed2567650f5d6eaba</link>
+            <guid isPermaLink="true">https://mesharch.studio/blog/6772d85ed2567650f5d6eaba</guid>
+            <pubDate>Mon, 30 Dec 2024 17:29:02 GMT</pubDate>
+            <enclosure
+                url="https://mesharch.s3.eu-west-1.amazonaws.com/blog_1735579742565-blog_LBSF.webp"
+                length="0" type="image/jpeg" />
+        </item>
+        <item>
+            <title><![CDATA[Апартаментът на Зиад Заки от Human Nature Design]]></title>
+            <description><![CDATA[Апартаментът на Зиад Заки е пример за дизайн, който съчетава модерна естетика с органични елементи, вдъхновени от човешката природа. Проектът се фокус...]]></description>
+            <link>https://mesharch.studio/blog/6771d662d2567650f5d6e8ee</link>
+            <guid isPermaLink="true">https://mesharch.studio/blog/6771d662d2567650f5d6e8ee</guid>
+            <pubDate>Sun, 29 Dec 2024 23:08:18 GMT</pubDate>
+            <enclosure
+                url="https://mesharch.s3.eu-west-1.amazonaws.com/blog_1735513698814-ziad-zakis-flat-human-nature-design_1.jpg"
+                length="0" type="image/jpeg" />
+        </item>
+        <item>
+            <title><![CDATA[V-Ray идва за Blender]]></title>
+            <description><![CDATA[Chaos обяви официално интеграцията на своя водещ рендеринг енджин V-Ray в Blender.
+
+Това дългоочаквано развитие предоставя възможности за рендеринг ...]]></description>
+            <link>https://mesharch.studio/blog/6771bff4d2567650f5d6e586</link>
+            <guid isPermaLink="true">https://mesharch.studio/blog/6771bff4d2567650f5d6e586</guid>
+            <pubDate>Sun, 29 Dec 2024 21:32:36 GMT</pubDate>
+            <enclosure
+                url="https://mesharch.s3.eu-west-1.amazonaws.com/blog_1735507956173-vray_toBLender.jpg"
+                length="0" type="image/jpeg" />
+        </item>
+        <item>
+            <title><![CDATA[Безплатен Blender Plug-in за управление на камерата като дрон]]></title>
+            <description><![CDATA[Blender потребителите могат да се възползват от нов безплатен plug-in, който позволява управление на камерата по начин, наподобяващ летенето с дрон. P...]]></description>
+            <link>https://mesharch.studio/blog/6771798ea8a380dd134a87da</link>
+            <guid isPermaLink="true">https://mesharch.studio/blog/6771798ea8a380dd134a87da</guid>
+            <pubDate>Sun, 08 Dec 2024 16:32:14 GMT</pubDate>
+            <enclosure
+                url="https://mesharch.s3.eu-west-1.amazonaws.com/blog_1735489934818-Screenshot 2024-12-29 183125.jpg"
+                length="0" type="image/jpeg" />
+        </item>
+        <item>
+            <title><![CDATA[Архитектурната визуализация: интерактивен рендеринг и виртуална реалност]]></title>
+            <description><![CDATA[В последните години архитектурната визуализация претърпя значителна трансформация, благодарение на напредъка в технологиите. Реалновремевият рендеринг...]]></description>
+            <link>https://mesharch.studio/blog/677176141b8c5aa81e9eff2a</link>
+            <guid isPermaLink="true">https://mesharch.studio/blog/677176141b8c5aa81e9eff2a</guid>
+            <pubDate>Tue, 29 Aug 2023 16:17:24 GMT</pubDate>
+            <enclosure
+                url="https://mesharch.s3.eu-west-1.amazonaws.com/blog_1735489044856-the-future-of-architectural-visualization-real-time-rendering-virtual-reality-and-interactive-explorations_8 (Small).jpg"
+                length="0" type="image/jpeg" />
+        </item>
+        <item>
+            <title><![CDATA[Разглеждане на последните тенденции в технологиите за 3D архитектурна визуализация]]></title>
+            <description><![CDATA[През последните години технологиите за 3D архитектурна визуализация претърпяха значителен напредък, революционизирайки начина, по който архитектите и ...]]></description>
+            <link>https://mesharch.studio/blog/677174b51b8c5aa81e9eff0d</link>
+            <guid isPermaLink="true">https://mesharch.studio/blog/677174b51b8c5aa81e9eff0d</guid>
+            <pubDate>Thu, 29 Dec 2022 16:11:33 GMT</pubDate>
+            <enclosure
+                url="https://mesharch.s3.eu-west-1.amazonaws.com/blog_1735488693421-1000059143.jpg"
+                length="0" type="image/jpeg" />
+        </item>
+    </channel>
+</rss>

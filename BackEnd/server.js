@@ -9,7 +9,6 @@ const path = require('path');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const RSS = require('rss');
 
 const app = express();
 
