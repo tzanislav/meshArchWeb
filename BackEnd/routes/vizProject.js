@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const VizProject = require('../models/VizProject');
+const requireAuth = require('../middleware/auth');
 const router = express.Router();
 
 // Configure multer for file storage
@@ -16,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Create a new VizProject
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
     const vizProject = new VizProject(req.body);
     await vizProject.save();
@@ -50,7 +51,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update a VizProject by ID
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireAuth, async (req, res) => {
   try {
     const vizProject = await VizProject.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!vizProject) {
@@ -63,7 +64,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete a VizProject by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
   try {
     const vizProject = await VizProject.findByIdAndDelete(req.params.id);
     if (!vizProject) {
@@ -76,7 +77,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Reorder images in a VizProject by moving one to the first position
-router.put('/:id/images/reorder', async (req, res) => {
+router.put('/:id/images/reorder', requireAuth, async (req, res) => {
   const { url } = req.body;
   try {
     const vizProject = await VizProject.findById(req.params.id);
@@ -104,7 +105,7 @@ router.put('/:id/images/reorder', async (req, res) => {
 });
 
 // Image upload endpoint
-router.post('/upload/:id/images', upload.single('image'), async (req, res) => {
+router.post('/upload/:id/images', requireAuth, upload.single('image'), async (req, res) => {
   try {
     const vizProject = await VizProject.findById(req.params.id);
     if (!vizProject) {

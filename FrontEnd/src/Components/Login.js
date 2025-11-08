@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import axios from '../axios-config';
 import { AuthContext } from '../context/AuthContext';
 import '../CSS/Login.css';
 import { Link, Navigate, redirect, useNavigate  } from 'react-router-dom';
@@ -15,7 +15,7 @@ const Login = () => {
         e.preventDefault();
         try {
             console.log('username', username);
-            const res = await axios.post('https://mesharch.studio/user/login', {
+            const res = await axios.post('/user/login', {
                 username,
                 password,
             });

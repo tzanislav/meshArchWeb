@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -28,7 +29,12 @@ router.post('/login', async (req, res) => {
     console.log('Invalid password');
     return res.status(400).send('Invalid credentials');
   }
-  const token = jwt.sign({ userId: user._id }, 'secretkey', {
+  if (!JWT_SECRET) {
+    console.error('JWT_SECRET environment variable is not set.');
+    return res.status(500).send('Authentication is not configured.');
+  }
+
+  const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
     expiresIn: '1h',
   });
 

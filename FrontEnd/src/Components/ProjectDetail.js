@@ -41,7 +41,7 @@ const ProjectDetail = () => {
     formData.append('image', newImage);
 
     try {
-      const res = await axios.post(`https://mesharch.studio/upload/${id}/images`, formData, {
+  const res = await axios.post(`/upload/${id}/images`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -57,7 +57,7 @@ const ProjectDetail = () => {
 
   const handleDeleteImage = async (urlToDelete) => {
     try {
-      const res = await axios.delete(`https://mesharch.studio/upload/${id}/images`, { data: { url: urlToDelete } });
+  const res = await axios.delete(`/upload/${id}/images`, { data: { url: urlToDelete } });
       setProject(res.data);
     } catch (error) {
       console.error('Error deleting image', error);

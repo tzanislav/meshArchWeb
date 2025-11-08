@@ -3,7 +3,10 @@ const multer = require('multer');
 const { S3Client, PutObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 const s3 = require('../config/s3');
 const VizProject = require('../models/VizProject');
+const requireAuth = require('../middleware/auth');
 const router = express.Router();
+
+router.use(requireAuth);
 
 const upload = multer();
 

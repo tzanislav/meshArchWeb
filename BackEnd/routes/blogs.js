@@ -4,6 +4,7 @@ const Blog = require('../models/blog'); // Import the Blog model
 const router = express.Router();
 const multer = require('multer');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const requireAuth = require('../middleware/auth');
 
 const upload = multer(); // Multer configuration for handling file uploads
 const s3 = new S3Client({ region: process.env.AWS_REGION });
@@ -14,7 +15,7 @@ const { route } = require('./user');
 // Routes
 
 // Create a new blog
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', requireAuth, upload.single('image'), async (req, res) => {
     try {
         // Upload image to S3
         const file = req.file; // Single file from 'image' field
@@ -130,7 +131,7 @@ router.get('/:id', async (req, res) => {
 
 
 // Update a blog
-router.put('/:id', upload.single('image'), async (req, res) => {
+router.put('/:id', requireAuth, upload.single('image'), async (req, res) => {
     try {
         let { title, content, author, source } = req.body; // Parse fields from req.body
         let image = req.body.image; // Handle image URL if passed
@@ -188,7 +189,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
 
 
 // Delete a blog
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     try {
         const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
         if (!deletedBlog) return res.status(404).json({ error: 'Blog not found' });

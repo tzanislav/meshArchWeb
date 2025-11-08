@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../axios-config';
 import '../CSS/Register.css';
 import { Link } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const Register = () => {
     
 
     try {
-      await axios.post('https://mesharch.studio/user/register', {
+  await axios.post('/user/register', {
         username,
         password,
       });
