@@ -6,9 +6,14 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
   try {
+    const { username, password } = req.body || {};
+
+    if (!username || !password) {
+      return res.status(400).send('Username and password are required');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, password: hashedPassword });
     await user.save();
     res.status(201).send('User registered');
