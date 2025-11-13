@@ -15,14 +15,24 @@ function ImageLightbox({ images, close }) {
     });
 
     const goToPrevious = (e) => {
-        if (e)
-        e.stopPropagation();
+        if (images.length <= 1) {
+            setImageLoaded(true);
+            return;
+        }
+        if (e) {
+            e.stopPropagation();
+        }
         changeImage((currentIndex === 0 ? images.length - 1 : currentIndex - 1));
     };
 
     const goToNext = (e) => {
-        if (e)
-        e.stopPropagation();
+        if (images.length <= 1) {
+            setImageLoaded(true);
+            return;
+        }
+        if (e) {
+            e.stopPropagation();
+        }
         changeImage((currentIndex === images.length - 1 ? 0 : currentIndex + 1));
     };
 
@@ -46,6 +56,11 @@ function ImageLightbox({ images, close }) {
         
 
     const changeImage = (newIndex) => {
+        if (newIndex === currentIndex) {
+            setImageStatus('fade-enter');
+            setImageLoaded(true);
+            return;
+        }
         setImageLoaded(false); // Reset load status
         setImageStatus('fade-exit');
         setTimeout(() => {
