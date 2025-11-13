@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../axios-config';
 import '../CSS/CreateProject.css';
-import { AuthContext } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 const CreateProject = () => {
   const [name, setName] = useState('');
@@ -10,8 +8,6 @@ const CreateProject = () => {
   const [description, setDescription] = useState('');
   const [images, setImages] = useState([]);
   const [message, setMessage] = useState('');
-  const { authToken } = React.useContext(AuthContext);
-  const navigate = useNavigate();
 
 
   const handleFileChange = (e) => {
@@ -42,13 +38,6 @@ const CreateProject = () => {
       console.error(error);
     }
   };
-
-  if(authToken === null){
-
-    navigate('/login');
-    return null;
-  }
-
 
   return (
     <div className="create-project-container">

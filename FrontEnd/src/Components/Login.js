@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from '../axios-config';
 import { AuthContext } from '../context/AuthContext';
 import '../CSS/Login.css';
-import { Link, Navigate, redirect, useNavigate  } from 'react-router-dom';
+import { useLocation, useNavigate  } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -10,17 +10,18 @@ const Login = () => {
     const { login } = useContext(AuthContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log('username', username);
             const res = await axios.post('/user/login', {
                 username,
                 password,
             });
             login(res.data.token);
-            navigate('/'); // Redirect to home page
+            navigate(from, { replace: true });
 
 
         } catch (error) {

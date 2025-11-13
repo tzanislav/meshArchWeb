@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from '../axios-config'; 
 import '../CSS/ProjectList.css';
 import Padding from './Padding';
-import { AuthContext } from '../context/AuthContext';
 
 
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
-  const { authToken } = React.useContext(AuthContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -33,11 +30,6 @@ const ProjectList = () => {
       console.error('Error deleting project', error);
     }
   };
-
-  if(authToken === null){
-    navigate('/login');
-    return null;
-  }
 
   return (
     <div className="project-list-container">
