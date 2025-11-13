@@ -37,8 +37,8 @@ const ProjectDetail = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('image', newImage);
+  const formData = new FormData();
+  formData.append('images', newImage);
 
     try {
   const res = await axios.post(`/upload/${id}/images`, formData, {
@@ -121,7 +121,7 @@ const ProjectDetail = () => {
       <div className="project-images">
       {project.urls.map((url, index) => (
         <div key={index} className="project-image-wrapper">
-          <img src={url} alt={`Project Image ${index + 1}`} />
+          <img src={url} alt={`Project visualization ${index + 1}`} />
           <div className="project-image-buttons">
             <button onClick={() => handleDeleteImage(url)} className="delete-button">Delete</button>
             <button onClick={() => handleMoveImageToFirst(url)} className="make-first-button">Make First</button>
