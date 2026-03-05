@@ -6,9 +6,13 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+/*
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
+*/
+const APP_PORT = process.env.PORT || 3000;
+
 
 const app = express();
 let atlasWhitelistError = false;
@@ -16,6 +20,8 @@ let atlasWhitelistErrorMessage = null;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.set('trust proxy', 1);
+
 
 mongoose.connect(process.env.MONGO_DB)
   .then(() => {
@@ -113,6 +119,11 @@ app.use((err, req, res, next) => {
   return next(err);
 });
 
+app.listen(APP_PORT, '127.0.0.1', () => {
+  console.log(`App is running on http://127.0.0.1:${APP_PORT}`);
+});
+
+/*
 const HTTP_PORT = process.env.HTTP_PORT || 80;
 const HTTPS_PORT = process.env.HTTPS_PORT || 443;
 
@@ -131,3 +142,4 @@ if (process.env.DEV_MODE !== 'development') {
     console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
   });
 }
+*/
